@@ -1,0 +1,7 @@
+# Normalise text, keep images/binary as-is
+* text=auto
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.pdf binary

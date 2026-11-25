@@ -1,0 +1,12 @@
+# Python build artifacts
+__pycache__/
+*.pyc
+
+# Vercel CLI
+.vercel/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log

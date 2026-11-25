@@ -1,0 +1,9 @@
+parsed records: 404
+status: {'bad_options': 5, 'duplicate': 4, 'needs_key': 1, 'verified': 394}
+verified: 394
+needs_image: 0
+needs_key: 1
+bad_options: 5
+duplicate: 4
+images attached: 130
+source number range: 1..433

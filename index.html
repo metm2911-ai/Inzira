@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="rw">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b4f8a">
+<meta name="description" content="Inzira - wige amategeko y'umuhanda, ukore ikizamini cy'ikinyabiziga, utsinde ubushobozi bwo gutwara. Ikoresha nta internet.">
+<title>Inzira — Amategeko y'umuhanda</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#f7c600"/><path d="M16 25V8" stroke="#0b4f8a" stroke-width="4" stroke-linecap="round"/><path d="M9 15l7-8 7 8" stroke="#0b4f8a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </span>
+      <div class="brand-text">
+        <strong>Inzira</strong>
+        <small id="brandSub">Menya amategeko. Tsinda ikizamini.</small>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="accountBtn" aria-label="Konti">👤</button>
+      <button class="icon-btn" id="langBtn" aria-label="Hindura ururimi">RW</button>
+    </div>
+  </header>
+
+  <main id="view" tabindex="-1"></main>
+
+  <nav class="tabbar" aria-label="Ibice by'porogaramu">
+    <button data-nav="home" class="tab active">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="currentColor"/></svg>
+      <span>Ahabanza</span>
+    </button>
+    <button data-nav="practice" class="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v3H4zM4 11h16v3H4zM4 17h10v3H4z" fill="currentColor"/></svg>
+      <span>Kwiga</span>
+    </button>
+    <button data-nav="signs" class="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 4.5v6c0 5-3.8 8.6-9 9.5-5.2-.9-9-4.5-9-9.5v-6z" fill="currentColor"/></svg>
+      <span>Ibimenyetso</span>
+    </button>
+    <button data-nav="stats" class="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4V10H4zM10 20h4V4h-4zM16 20h4v-7h-4z" fill="currentColor"/></svg>
+      <span>Imibare</span>
+    </button>
+  </nav>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="data/cloud.config.js"></script>
+<script src="data/bank.js"></script>
+<script src="data/signs.js"></script>
+<script src="auth.js"></script>
+<script src="sync.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Files kept out of the public Vercel deployment.
+# The deployed site needs only: index.html, styles.css, *.js, manifest.webmanifest,
+# data/cloud.config.js, data/bank.js, data/signs.js, data/precache.js, assets/.
+
+# Build tooling - not part of the site
+tools/*.py
+tools/__pycache__/
+supabase/
+
+# Source content and documents - not needed at runtime (data/bank.js is the bundle)
+docs/
+data/questions.rw.json
+data/questions_raw.txt
+data/parse_report.txt
+data/drafts/
+data/overrides.json
+data/CHANGELOG.md
+README.md
+INZIRA-VERCEL-DEPLOYMENT-READINESS.md
+
+# tools/review.html is intentionally published so the in-app "Umwarimu" link works.
