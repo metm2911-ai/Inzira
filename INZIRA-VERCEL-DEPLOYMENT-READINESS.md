@@ -1,10 +1,10 @@
 # INZIRA — Vercel Deployment Readiness
 
-**Status:** **DEPLOYED.** The app is live at **https://inzira-rw.vercel.app** (short alias `https://inziraapp.vercel.app`; GitHub `metm2911-ai/Inzira` → Vercel project `inzira1/inzira`). All approved changes are implemented and verified in production. See §B4 for what is done; §B5 for the few remaining manual items.
+**Status:** **DEPLOYED.** The app is live at **https://menyamategeko.vercel.app** (`menyaamategeko.vercel.app` also works; GitHub `metm2911-ai/Inzira` → Vercel project `inzira1/inzira`). All approved changes are implemented and verified in production. See §B4 for what is done; §B5 for the few remaining manual items.
 
 - App version: `0.13.0-pilot` · service-worker cache `inzira-v21`
 - Project folder: `C:\Users\User\Documents\Default Project\inzira`
-- Live URL: `https://inzira-rw.vercel.app` (also `inziraapp.vercel.app`; `inzira-mu.vercel.app` still resolves)
+- Live URL: `https://menyamategeko.vercel.app` (also `menyaamategeko.vercel.app`; older `inzira-rw.vercel.app`, `inziraapp.vercel.app`, `inzira-mu.vercel.app` still resolve)
 - Backend: Supabase project `zmvxpatscxkvwymthkgc` (live, RLS on, sync verified)
 - Architecture preserved: static files, no build step, no dependencies, offline-first PWA
 
@@ -344,15 +344,16 @@ Done:
 3. ~~Approve the SW pre-cache change~~ — **done**.
 4. Deploy path: **Git + GitHub → Vercel** — **done**. Pushed to
    `metm2911-ai/Inzira` and deployed with the Vercel CLI; production is
-   `https://inzira-rw.vercel.app`.
-5. ~~Provide the production URL~~ — **done**: `https://inzira-rw.vercel.app`
-   (`inzira.vercel.app` was already taken; `inziraapp.vercel.app` added as an alias).
+   `https://menyamategeko.vercel.app`.
+5. ~~Provide the production URL~~ — **done**: `https://menyamategeko.vercel.app`
+   (`menyaamategeko.vercel.app` added too; `inzira-rw.vercel.app` /
+   `inziraapp.vercel.app` / `inzira-mu.vercel.app` still resolve).
 
 Still needed from you:
 6. **Update Supabase → Authentication → URL Configuration**: set **Site URL** to
-   `https://inzira-rw.vercel.app` and add it (plus `https://inziraapp.vercel.app`)
-   to **Redirect URLs** (replaces the localhost default). Low impact for
-   email+password sign-in, but correct.
+   `https://menyamategeko.vercel.app` and add it (plus
+   `https://menyaamategeko.vercel.app`) to **Redirect URLs** (replaces the
+   localhost default). Low impact for email+password sign-in, but correct.
 7. Optional: **hide `tools/review.html`** in production (comment the last line of
    `.vercelignore`); the in-app reviewer link would then 404.
 8. **Revoke the Vercel token** that was used for the CLI deploy (it expires within
