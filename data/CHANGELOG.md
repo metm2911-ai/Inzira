@@ -1,5 +1,16 @@
 # Content changelog
 
+## 2026-11-25 — promo & canonical domain (no bank change)
+- **Public link is now `https://menyamategeko.vercel.app`** (canonical). All older
+  aliases (`menyaamategeko`, `inzira-rw`, `inziraapp`, `inzira-mu`) **308-redirect**
+  to it, so every spelling and old link lands on the promoted address.
+- Added a **link-preview card** (`assets/og.png`, 1200×630) plus Open Graph and
+  Twitter `summary_large_image` meta in `index.html`, so pasting the link into
+  WhatsApp/Facebook shows a branded card instead of a bare URL.
+- No question-bank or app-logic change; app version stays `0.13.0-pilot`.
+  Service-worker cache bumped `inzira-v21` → **`inzira-v22`** so installed users
+  pick up the new page head.
+
 ## 2026-11-25 — v0.13.0-pilot
 - **The 18 low-resolution sign images are now vector art.** These study images were
   lifted from tiny bitmaps inside the PDF (a 62 px traffic light, 80 px narrow-road
