@@ -1,5 +1,7 @@
 # Inzira
 
+**Live app:** https://inzira-mu.vercel.app
+
 Kinyarwanda-first, offline driving-theory trainer for Rwanda's provisional licence exam.
 
 - **20 questions · 20 minutes · 12/20 to pass** — same shape as the real test

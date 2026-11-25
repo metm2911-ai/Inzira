@@ -1,9 +1,10 @@
 # INZIRA — Vercel Deployment Readiness
 
-**Status:** Investigation complete and the approved changes are **implemented locally**. **Nothing has been deployed and no production setting has been changed.** See §B4 for what is done; §B5 lists what still needs your decision.
+**Status:** **DEPLOYED.** The app is live at **https://inzira-mu.vercel.app** (GitHub `metm2911-ai/Inzira` → Vercel project `inzira1/inzira`). All approved changes are implemented and verified in production. See §B4 for what is done; §B5 for the few remaining manual items.
 
 - App version: `0.13.0-pilot` · service-worker cache `inzira-v21`
 - Project folder: `C:\Users\User\Documents\Default Project\inzira`
+- Live URL: `https://inzira-mu.vercel.app` (SSO/Deployment Protection is **off** — verified anonymously reachable)
 - Backend: Supabase project `zmvxpatscxkvwymthkgc` (live, RLS on, sync verified)
 - Architecture preserved: static files, no build step, no dependencies, offline-first PWA
 
@@ -333,23 +334,29 @@ Everything below is now in the project (local only; **not deployed**).
 `auth.js` + `sync.js` round-trip verified; SW at root scope; relative paths and
 no client-side routing throughout.
 
-> Deployment has **not** run and no Supabase/production setting has been touched.
+> Deployment has **run**: live at `https://inzira-mu.vercel.app`.
 
 ## B5. Manual steps requiring your approval
 
-Done with your approval:
+Done:
 1. ~~Approve the image fix~~ — **done** (§B4).
 2. ~~Approve `vercel.json` + `.vercelignore`~~ — **done** (`tools/review.html` kept).
 3. ~~Approve the SW pre-cache change~~ — **done**.
-4. Deploy path chosen: **Git + GitHub → Vercel**.
+4. Deploy path: **Git + GitHub → Vercel** — **done**. Pushed to
+   `metm2911-ai/Inzira` and deployed with the Vercel CLI; production is
+   `https://inzira-mu.vercel.app`.
+5. ~~Provide the production URL~~ — **done**: `https://inzira-mu.vercel.app`.
 
 Still needed from you:
-5. **Provide/confirm the production URL** (e.g. `inzira.vercel.app`) so it can be
-   registered in Supabase (Site URL + Redirect URLs).
-6. **Approve the actual deploy** — I will not push to GitHub or run a Vercel
-   deploy until you say so.
-7. Optional: decide whether to **hide `tools/review.html`** in production
-   (comment the last line of `.vercelignore` to hide it; the in-app link then 404s).
+6. **Update Supabase → Authentication → URL Configuration**: set **Site URL** to
+   `https://inzira-mu.vercel.app` and add it to **Redirect URLs** (replaces the
+   localhost default). Low impact for email+password sign-in, but correct.
+7. Optional: **hide `tools/review.html`** in production (comment the last line of
+   `.vercelignore`); the in-app reviewer link would then 404.
+8. **Revoke the Vercel token** that was used for the CLI deploy (it expires within
+   a day regardless), and consider a final security pass: rotate the Supabase DB
+   password. **Note:** the GitHub repo was left **public**, so the business docs
+   and the raw question bank are publicly readable — revisit if that matters.
 
 ## B6. Deployment instructions
 
