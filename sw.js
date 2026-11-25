@@ -1,7 +1,7 @@
 /* Inzira service worker - offline first.
  * Bump CACHE when you change any file in CORE or the question bank/images.
  */
-const CACHE = "inzira-v21";
+const CACHE = "inzira-v22";
 const CORE = [
   "./",
   "index.html",

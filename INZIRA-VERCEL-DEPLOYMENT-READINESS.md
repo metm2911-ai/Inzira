@@ -4,7 +4,7 @@
 
 - App version: `0.13.0-pilot` · service-worker cache `inzira-v21`
 - Project folder: `C:\Users\User\Documents\Default Project\inzira`
-- Live URL: `https://menyamategeko.vercel.app` (also `menyaamategeko.vercel.app`; older `inzira-rw.vercel.app`, `inziraapp.vercel.app`, `inzira-mu.vercel.app` still resolve)
+- Live URL: `https://menyamategeko.vercel.app` (canonical; `menyaamategeko`, `inzira-rw`, `inziraapp`, `inzira-mu` all **308-redirect** here)
 - Backend: Supabase project `zmvxpatscxkvwymthkgc` (live, RLS on, sync verified)
 - Architecture preserved: static files, no build step, no dependencies, offline-first PWA
 

@@ -1,6 +1,6 @@
 # Inzira
 
-**Live app:** https://menyamategeko.vercel.app  ·  also `menyaamategeko.vercel.app`
+**Live app:** https://menyamategeko.vercel.app  (canonical — every other spelling/alias redirects here)
 
 Kinyarwanda-first, offline driving-theory trainer for Rwanda's provisional licence exam.
 
