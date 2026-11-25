@@ -9,8 +9,16 @@ create table if not exists public.profiles (
   name text,
   phone text,
   plan text not null default 'free',        -- 'free' | 'full'
+  school_code text,                         -- key from data/schools.js (nullable)
   created_at timestamptz default now()
 );
+
+-- Add the column on databases created before it existed (safe to re-run).
+alter table public.profiles add column if not exists school_code text;
+
+-- Speeds up the per-school cohort report (see supabase/reports.sql).
+create index if not exists profiles_school_code_idx on public.profiles (school_code);
+
 alter table public.profiles enable row level security;
 
 drop policy if exists "profiles_select_own" on public.profiles;

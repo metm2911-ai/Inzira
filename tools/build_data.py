@@ -257,7 +257,7 @@ def main():
         used_ids.add(q["id"])
 
     payload = {
-        "version": "0.13.0-pilot",
+        "version": "0.14.0-pilot",
         "updated": date.today().isoformat(),
         "language": "rw",
         "count": len(questions),

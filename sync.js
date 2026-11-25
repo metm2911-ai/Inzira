@@ -39,8 +39,27 @@
   async function loadProfile() {
     if (!available()) return null;
     const id = userId();
-    const rows = await api(`/rest/v1/${PROFILES}?id=eq.${id}&select=plan,name,phone`, { headers: headers(true) });
-    return rows && rows[0] ? rows[0] : null;
+    try {
+      const rows = await api(`/rest/v1/${PROFILES}?id=eq.${id}&select=plan,name,phone,school_code`, { headers: headers(true) });
+      return rows && rows[0] ? rows[0] : null;
+    } catch (e) {
+      // The school_code column may not exist yet on this database; fall back.
+      const rows = await api(`/rest/v1/${PROFILES}?id=eq.${id}&select=plan,name,phone`, { headers: headers(true) });
+      return rows && rows[0] ? rows[0] : null;
+    }
+  }
+
+  // Merge fields onto the signed-in learner's own profile row (RLS: own row only).
+  // Used to record which school the learner belongs to, for the cohort report.
+  async function pushProfile(fields) {
+    if (!available()) return false;
+    const id = userId();
+    await api(`/rest/v1/${PROFILES}?on_conflict=id`, {
+      method: "POST",
+      headers: Object.assign(headers(true), { "Prefer": "resolution=merge-duplicates,return=minimal" }),
+      body: JSON.stringify(Object.assign({ id }, fields))
+    });
+    return true;
   }
 
   /* ----------------------------------------------------------- progress */
@@ -91,5 +110,5 @@
     return true;
   }
 
-  window.INZIRA_SYNC = { available, pull, push, loadProfile, merge };
+  window.INZIRA_SYNC = { available, pull, push, loadProfile, pushProfile, merge };
 })();

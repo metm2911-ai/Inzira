@@ -53,7 +53,7 @@ The app is pure static files — no build step, no dependencies.
 Other static hosts (**Cloudflare Pages**, **Netlify**, **GitHub Pages**) also work
 — no build command, output = the `inzira` folder.
 
-After deploying, bump `CACHE` in `sw.js` (currently `inzira-v22`) whenever you
+After deploying, bump `CACHE` in `sw.js` (currently `inzira-v23`) whenever you
 change files or the question bank, so installed users get the update. The in-app
 Settings button **Reba niba hari ibishya** forces a refresh too.
 
@@ -76,6 +76,16 @@ unlock until Mobile Money is wired up.
 
 Identity is email **or** phone plus a password — never SMS, so there is no
 per-message cost.
+
+## Schools (B2B)
+
+A school gets a code and a link. A student who opens
+`https://menyamategeko.vercel.app/?school=KIGALI01` — or scans its QR — gets the
+full app instantly, offline, with no typing. Codes live in **`data/schools.js`**
+(name, seats, expiry, active), so you add or revoke a school by editing one file.
+The monthly per-school report is **`supabase/reports.sql`**.
+
+Full playbook: [docs/09-school-onboarding.md](docs/09-school-onboarding.md).
 
 ## Editing or adding questions
 
@@ -157,7 +167,7 @@ python tools\build_data.py        # regenerate data/bank.js + data/precache.js
 The build prints a **quality gate**: any picture whose source is under 160 px
 (too small to ever look sharp) is listed for replacement.
 
-3. Bump the service-worker cache version (`inzira-v22` → `inzira-v23`) and reload twice.
+3. Bump the service-worker cache version (`inzira-v23` → `inzira-v24`) and reload twice.
 
 Only records with `status: "verified"` reach the app. Everything else stays in the JSON for review.
 

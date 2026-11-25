@@ -6,6 +6,7 @@
 
   const BANK = (window.INZIRA_BANK && window.INZIRA_BANK.questions) || [];
   const SIGNS = window.SIGNS || {};
+  const SCHOOLS = window.INZIRA_SCHOOLS || {};
   const STORE = "inzira.v1";
   const EXAM_SIZE = 20;
   const EXAM_MINUTES = 20;
@@ -63,7 +64,7 @@
       notSignedIn: "Ntiwinjiye", wrongCreds: "Imeyili/telefone cyangwa ijambo ry'ibanga sibyo.",
       acctExists: "Iyi konti isanzweho.", weakPassword: "Ijambo ry'ibanga rigomba nibura inyuguti 6.",
       needIdentity: "Shyiramo imeyili cyangwa telefone.", checkEmail: "Reba imeyili yawe wemeze konti.",
-      unlock: "Fungura", unlocked: "Byafunguwe", reset: "Siba amakuru yose",
+      unlock: "Fungura", unlocked: "Byafunguwe", schoolWelcome: "Wafunguriwe n'ishuri", reset: "Siba amakuru yose",
       resetConfirm: "Siba amanota n'amakuru yose? Ntibishobora gusubizwa.",
       about: "Ibyerekeye Inzira",
       disclaimer: "Inzira ni igikoresho cyo kwigisha. Ntabwo ihagarariye Polisi y'Igihugu (RNP). Ibibazo bigomba kugenzurwa n'umwarimu w'ubushoferi mbere yo gukoreshwa mu buryo bwemewe.",
@@ -127,7 +128,7 @@
       notSignedIn: "Not signed in", wrongCreds: "Wrong email/phone or password.",
       acctExists: "That account already exists.", weakPassword: "Password must be at least 6 characters.",
       needIdentity: "Add an email or a phone number.", checkEmail: "Check your email to confirm the account.",
-      unlock: "Unlock", unlocked: "Unlocked", reset: "Erase all data",
+      unlock: "Unlock", unlocked: "Unlocked", schoolWelcome: "Unlocked by your school", reset: "Erase all data",
       resetConfirm: "Erase all scores and data? This cannot be undone.",
       about: "About Inzira",
       disclaimer: "Inzira is a study aid. It is not endorsed by the Rwanda National Police (RNP). Questions must be reviewed by a qualified driving instructor before official use.",
@@ -191,7 +192,7 @@
       notSignedIn: "Non connecté", wrongCreds: "E-mail/téléphone ou mot de passe incorrect.",
       acctExists: "Ce compte existe déjà.", weakPassword: "Le mot de passe doit faire au moins 6 caractères.",
       needIdentity: "Ajoutez un e-mail ou un téléphone.", checkEmail: "Vérifiez votre e-mail pour confirmer le compte.",
-      unlock: "Débloquer", unlocked: "Débloqué", reset: "Effacer toutes les données",
+      unlock: "Débloquer", unlocked: "Débloqué", schoolWelcome: "Débloqué par votre école", reset: "Effacer toutes les données",
       resetConfirm: "Effacer tous les scores et données ? Action irréversible.",
       about: "À propos d'Inzira",
       disclaimer: "Inzira est un outil d'étude. Il n'est pas approuvé par la Police Nationale (RNP). Les questions doivent être vérifiées par un moniteur qualifié avant tout usage officiel.",
@@ -308,7 +309,12 @@
       if (!I18N[state.lang]) state.lang = "rw";
       save();
       const p = await window.INZIRA_SYNC.loadProfile();
-      if (p && p.plan) applyPlan(p.plan);
+      if (p) {
+        if (p.plan) applyPlan(p.plan);
+        // A school's unlock follows the account across devices.
+        if (p.school_code && !state.premium) applySchool(p.school_code);
+        else if (state.school && !p.school_code) pushSchoolToProfile();
+      }
       const btn = document.getElementById("langBtn");
       if (btn) btn.textContent = state.lang.toUpperCase();
       render();
@@ -444,6 +450,7 @@
   let current = "home";
   let exam = null;      // live exam
   let practice = null;  // live practice session
+  let autoSchoolName = null; // set when ?school= unlock succeeds, for the welcome toast
 
   function nav(screen) {
     if (exam && screen !== "exam") {
@@ -1183,8 +1190,40 @@
     window.scrollTo({ top: 0 });
   }
 
+  /* --------------------------------------------------------------- schools */
+  // Look up a code in data/schools.js. Returns null when it is unknown, switched
+  // off, or past its expiry date — so a leaked/old code simply stops working.
+  function schoolEntry(code) {
+    const key = String(code || "").trim().toUpperCase();
+    const s = SCHOOLS[key];
+    if (!s || s.active === false) return null;
+    if (s.expires) {
+      const end = new Date(s.expires + "T23:59:59");
+      if (!isNaN(end.getTime()) && end < new Date()) return null;
+    }
+    return { code: key, name: s.name || key, seats: s.seats, expires: s.expires };
+  }
+  function schoolName(code) {
+    const e = schoolEntry(code);
+    return e ? e.name : null;
+  }
+  // Give this device the full plan for a school code.
+  function applySchool(code) {
+    const e = schoolEntry(code);
+    if (!e) return null;
+    state.premium = true;
+    state.school = e.code;
+    save();
+    pushSchoolToProfile();
+    return e;
+  }
+  // Record the learner's school on their account (best effort; needs sign-in).
+  function pushSchoolToProfile() {
+    if (!state.school || !cloudReady()) return;
+    try { window.INZIRA_SYNC.pushProfile({ school_code: state.school }); } catch (e) { /* offline */ }
+  }
+
   /* -------------------------------------------------------------- settings */
-  const SCHOOL_CODES = { "INZIRA2026": "Pilot", "KIGALI01": "Pilot" };
   const REVIEWER_CODES = { "UMWARIMU": true, "REVIEW2026": true };
 
   function renderSettings() {
@@ -1221,6 +1260,7 @@
               ${state.premium ? "✓ " + esc(t("unlocked")) : ""}
             </span>
           </div>
+          ${state.school && schoolName(state.school) ? `<div class="small muted" style="margin-bottom:10px">${esc(schoolName(state.school))}</div>` : ""}
           <div class="field">
             <input id="codeInput" type="text" inputmode="text" autocapitalize="characters" placeholder="INZIRA2026" value="${state.school ? esc(state.school) : ""}" ${state.premium ? "disabled" : ""}>
             <button class="btn btn-primary" style="width:auto;min-width:110px" data-act="unlock" ${state.premium ? "disabled" : ""}>${esc(t("unlock"))}</button>
@@ -1268,10 +1308,7 @@
   function unlock() {
     const input = $("#codeInput");
     const code = (input.value || "").trim().toUpperCase();
-    if (SCHOOL_CODES[code]) {
-      state.premium = true;
-      state.school = code;
-      save();
+    if (applySchool(code)) {
       toast(t("unlocked"));
       renderSettings();
     } else {
@@ -1389,6 +1426,21 @@
 
   /* --------------------------------------------------------------- startup */
   load();
+
+  // School auto-unlock: a link like .../?school=KIGALI01 (from a school's QR or
+  // enrolment form) unlocks the full app on this device. Works fully offline,
+  // because the registry ships in data/schools.js.
+  (function unlockFromUrl() {
+    try {
+      const params = new URLSearchParams(location.search);
+      const code = params.get("school") || params.get("s");
+      if (!code) return;
+      if (state.premium && state.school) return; // already unlocked here
+      const e = applySchool(code);
+      if (e) autoSchoolName = e.name;
+      else toast(t("invalidCode"));
+    } catch (err) { /* malformed URL: ignore */ }
+  })();
   $("#langBtn").textContent = state.lang.toUpperCase();
   $("#brandSub").textContent = t("tagline");
   if (state.lang !== "rw") document.documentElement.lang = state.lang;
@@ -1405,6 +1457,7 @@
 
   render();
   updateAccountBtn();
+  if (autoSchoolName) toast(t("schoolWelcome") + ": " + autoSchoolName);
 
   // If a cloud account is already signed in on this device, pull progress.
   if (cloudReady()) pullSync();

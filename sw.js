@@ -1,7 +1,7 @@
 /* Inzira service worker - offline first.
  * Bump CACHE when you change any file in CORE or the question bank/images.
  */
-const CACHE = "inzira-v22";
+const CACHE = "inzira-v23";
 const CORE = [
   "./",
   "index.html",
@@ -11,6 +11,7 @@ const CORE = [
   "sync.js",
   "manifest.webmanifest",
   "data/cloud.config.js",
+  "data/schools.js",
   "data/bank.js",
   "data/signs.js",
   "data/precache.js",

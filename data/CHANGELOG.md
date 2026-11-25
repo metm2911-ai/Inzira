@@ -1,5 +1,24 @@
 # Content changelog
 
+## 2026-11-25 — v0.14.0-pilot (school program)
+- **School registry** moved out of `app.js` into **`data/schools.js`** — one line
+  per school (name, seats, expiry, active). Add or revoke a school with no code
+  changes.
+- **`?school=CODE` auto-unlock** — a school's link/QR
+  (`https://menyamategeko.vercel.app/?school=KIGALI01`) unlocks the full app on
+  the student's device, fully offline. A welcome toast names the school.
+- **Codes expire / can be switched off**; unknown, expired or inactive codes are
+  rejected instead of unlocking.
+- **School attribution** — the learner's `school_code` is written to their
+  Supabase profile (`sync.js: pushProfile`), so usage can be reported per school.
+  `loadProfile` degrades gracefully if the column is not yet migrated.
+- **`supabase/reports.sql`** — the per-school cohort report: seats used, mocks
+  taken, average score, predicted-ready count, weak topics, roster and a seat
+  quota check.
+- `supabase/schema.sql` gained the `school_code` column + index.
+- Service-worker cache bumped to `inzira-v23` (adds `data/schools.js`).
+- New operator guide: `docs/09-school-onboarding.md`.
+
 ## 2026-11-25 — promo & canonical domain (no bank change)
 - **Public link is now `https://menyamategeko.vercel.app`** (canonical). All older
   aliases (`menyaamategeko`, `inzira-rw`, `inziraapp`, `inzira-mu`) **308-redirect**
