@@ -166,6 +166,8 @@ def audit_images(questions, native_by_id):
         if not path or path in images:
             continue
         images.append(path)
+        if path.lower().endswith(".svg"):
+            continue  # vector art is resolution-independent: never "soft"
         width = native_by_id.get(q["id"])
         if width is None and Image is not None:
             try:
@@ -255,7 +257,7 @@ def main():
         used_ids.add(q["id"])
 
     payload = {
-        "version": "0.12.0-pilot",
+        "version": "0.13.0-pilot",
         "updated": date.today().isoformat(),
         "language": "rw",
         "count": len(questions),

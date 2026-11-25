@@ -1,5 +1,19 @@
 # Content changelog
 
+## 2026-11-25 — v0.13.0-pilot
+- **The 18 low-resolution sign images are now vector art.** These study images were
+  lifted from tiny bitmaps inside the PDF (a 62 px traffic light, 80 px narrow-road
+  signs, a 142 px warning triangle) and could never be sharp — tested at
+  200/600/1200 dpi, the extra pixels are just invented. They are replaced by hand-drawn
+  SVG in `assets/q/clean/` and wired in through `data/overrides.json`, so
+  re-running `tools/parse_questions.py` never overwrites them. Affected questions:
+  RW-0200, RW-0224, RW-0225, RW-0226, RW-0227, RW-0241, RW-0337, RW-0338, RW-0340,
+  RW-0342, RW-0344, RW-0345, RW-0346, RW-0347, RW-0375, RW-0385, RW-0391, RW-0392.
+  Vector art stays sharp at any display size or screen density.
+- `tools/build_data.py` treats SVG as resolution-independent, so the image quality
+  gate is now **clean** (no soft images reported).
+- Service-worker cache bumped to `inzira-v21`.
+
 ## 2026-11-25 — v0.12.0-pilot
 - **Sharper question images.** `tools/parse_questions.py` no longer renders every
   picture at a fixed 200 dpi — it now matches each image's own resolution

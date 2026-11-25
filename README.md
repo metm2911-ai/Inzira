@@ -51,7 +51,7 @@ The app is pure static files — no build step, no dependencies.
 Other static hosts (**Cloudflare Pages**, **Netlify**, **GitHub Pages**) also work
 — no build command, output = the `inzira` folder.
 
-After deploying, bump `CACHE` in `sw.js` (currently `inzira-v20`) whenever you
+After deploying, bump `CACHE` in `sw.js` (currently `inzira-v21`) whenever you
 change files or the question bank, so installed users get the update. The in-app
 Settings button **Reba niba hari ibishya** forces a refresh too.
 
@@ -155,7 +155,7 @@ python tools\build_data.py        # regenerate data/bank.js + data/precache.js
 The build prints a **quality gate**: any picture whose source is under 160 px
 (too small to ever look sharp) is listed for replacement.
 
-3. Bump the service-worker cache version (`inzira-v20` → `inzira-v21`) and reload twice.
+3. Bump the service-worker cache version (`inzira-v21` → `inzira-v22`) and reload twice.
 
 Only records with `status: "verified"` reach the app. Everything else stays in the JSON for review.
 
@@ -180,10 +180,11 @@ This is a pilot mechanism, not security. Replace it with server-side licence che
 - Questions are Kinyarwanda only; English/French UI exists but question text does not.
 - 6 records are held back: 5 picture-answer questions (their choices are images)
   and 1 with no answer key in the source — 394 of 397 ship.
-- **18 shipped questions use low-resolution sign images** lifted from the PDF
-  (source under 160 px, some only 62–80 px). They cannot be sharp at any render
-  setting and should be replaced with clean art. `tools/build_data.py` lists them
-  (RW-0200, RW-0224…0227, RW-0241, RW-0337…0347, RW-0375, RW-0385, RW-0391, RW-0392).
+- **Sign images are sharp.** The 18 study images that came from tiny bitmaps in
+  the PDF (a 62 px traffic light, 80 px narrow-road signs, a 142 px warning
+  triangle) are replaced with hand-drawn vector art in `assets/q/clean/`, wired in
+  through `data/overrides.json`. They stay sharp at any size or screen density.
+  Vector art is editable without code - see `docs/07-content-editing.md`.
 - Explanations are topic-level rule cards, not per-question reasoning.
 - The free/full split is enforced **client-side** in a static build, so a
   determined user can read the full bank. Real content gating needs the bank

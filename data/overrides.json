@@ -1,5 +1,78 @@
 {
-  "patch": {},
+  "patch": {
+    "RW-0200": {
+      "image": "assets/q/clean/229.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0224": {
+      "image": "assets/q/clean/253.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0225": {
+      "image": "assets/q/clean/254.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0226": {
+      "image": "assets/q/clean/255.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0227": {
+      "image": "assets/q/clean/256.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0241": {
+      "image": "assets/q/clean/270.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0337": {
+      "image": "assets/q/clean/366.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0338": {
+      "image": "assets/q/clean/367.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0340": {
+      "image": "assets/q/clean/369.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0342": {
+      "image": "assets/q/clean/371.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0344": {
+      "image": "assets/q/clean/373.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0345": {
+      "image": "assets/q/clean/374.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0346": {
+      "image": "assets/q/clean/375.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0347": {
+      "image": "assets/q/clean/376.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0375": {
+      "image": "assets/q/clean/405.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0385": {
+      "image": "assets/q/clean/414.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0391": {
+      "image": "assets/q/clean/420.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    },
+    "RW-0392": {
+      "image": "assets/q/clean/421.svg",
+      "_note": "vector redraw of a low-resolution PDF bitmap"
+    }
+  },
   "hide": [],
   "add": []
 }
