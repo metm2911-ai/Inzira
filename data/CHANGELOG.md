@@ -16,6 +16,12 @@
   taken, average score, predicted-ready count, weak topics, roster and a seat
   quota check.
 - `supabase/schema.sql` gained the `school_code` column + index.
+- **Migration applied to the live database** (2026-11-25): `school_code` column +
+  `profiles_school_code_idx` verified; all four report queries run and their
+  maths was checked against a rolled-back fixture.
+- `tools/apply_sql.py` can now apply a migration from a hidden prompt
+  (`--prompt`, accepts a full URI or just the password) and reports the
+  resulting columns/indexes; `--dry-run` shows the target without connecting.
 - Service-worker cache bumped to `inzira-v23` (adds `data/schools.js`).
 - New operator guide: `docs/09-school-onboarding.md`.
 

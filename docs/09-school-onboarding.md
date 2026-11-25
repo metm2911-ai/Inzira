@@ -63,15 +63,22 @@ The promo tools already produce a QR. To encode a school link, point the QR at
 
 ---
 
-## 4. One database migration (run once)
+## 4. Database migration (already applied — 2026-11-25)
 
-The per-school report needs a `school_code` column on `profiles`. It is in
-`supabase/schema.sql` (safe to re-run). If you already applied the schema before
-this update, run just this in **Supabase → SQL Editor**:
+The per-school report needs a `school_code` column on `profiles`. **This is
+already applied to the live database** (column + index verified). For a fresh
+database, it lives in `supabase/schema.sql`, or run just this in
+**Supabase → SQL Editor**:
 
 ```sql
 alter table public.profiles add column if not exists school_code text;
 create index if not exists profiles_school_code_idx on public.profiles (school_code);
+```
+
+Or from a terminal, without ever putting the password in a file:
+
+```powershell
+python tools/apply_sql.py --prompt supabase/migrations/2026-11-25-school-code.sql
 ```
 
 The app works without it (the school code still unlocks locally); the column is
