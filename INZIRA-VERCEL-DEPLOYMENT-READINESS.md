@@ -2,7 +2,7 @@
 
 **Status:** **DEPLOYED.** The app is live at **https://menyamategeko.vercel.app** (`menyaamategeko.vercel.app` also works; GitHub `metm2911-ai/Inzira` → Vercel project `inzira1/inzira`). All approved changes are implemented and verified in production. See §B4 for what is done; §B5 for the few remaining manual items.
 
-- App version: `0.14.0-pilot` · service-worker cache `inzira-v23`
+- App version: `0.14.1-pilot` · service-worker cache `inzira-v24`
 - Project folder: `C:\Users\User\Documents\Default Project\inzira`
 - Live URL: `https://menyamategeko.vercel.app` (canonical; `menyaamategeko`, `inzira-rw`, `inziraapp`, `inzira-mu` all **308-redirect** here)
 - Backend: Supabase project `zmvxpatscxkvwymthkgc` (live, RLS on, sync verified)

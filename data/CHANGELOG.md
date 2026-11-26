@@ -1,5 +1,22 @@
 # Content changelog
 
+## 2026-11-25 — v0.14.1-pilot (school enforcement + verified report)
+- **Revocation is now enforced on the device.** Every launch re-checks a stored
+  school unlock against `data/schools.js`: an expired or `active:false` code
+  loses access (falls back to free), and a code removed from the registry is
+  dropped. Paid `full` accounts are never affected. Verified with expired,
+  disabled, unknown and valid codes, plus a previously-unlocked device.
+- **Cohort report verified against the live database**, end to end: a real
+  signup through the app's own form wrote `school_code = KIGALI01` via
+  PostgREST (RLS intact), the summary counted **1 seat used / 99 left**, and the
+  fixture account was deleted afterwards (0 rows left).
+- Report columns improved: summary gains `paid_seats`; roster now shows
+  `access` (`paid` vs `school`) instead of the raw plan, which is `free` for
+  school-seat learners by design.
+- `supabase/migrations/2026-11-25-school-code.sql` applied to the live DB:
+  `profiles.school_code` + `profiles_school_code_idx` confirmed.
+- Service-worker cache bumped to `inzira-v24`.
+
 ## 2026-11-25 — v0.14.0-pilot (school program)
 - **School registry** moved out of `app.js` into **`data/schools.js`** — one line
   per school (name, seats, expiry, active). Add or revoke a school with no code

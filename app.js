@@ -1427,6 +1427,20 @@
   /* --------------------------------------------------------------- startup */
   load();
 
+  // A stored school unlock is re-checked on every launch: if the code expired or
+  // was switched off in data/schools.js, access falls back to free. Paid accounts
+  // (plan 'full') are never touched.
+  (function revalidateSchool() {
+    if (!state.school) return;
+    const paid = (authUser() && authUser().plan === "full") || cloudPlan() === "full";
+    if (paid) return;
+    if (!schoolEntry(state.school)) {
+      state.premium = false;
+      state.school = null;
+      save();
+    }
+  })();
+
   // School auto-unlock: a link like .../?school=KIGALI01 (from a school's QR or
   // enrolment form) unlocks the full app on this device. Works fully offline,
   // because the registry ships in data/schools.js.

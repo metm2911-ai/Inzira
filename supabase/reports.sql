@@ -22,6 +22,7 @@ with attributed as (
 per_student as (
   select school_code,
          id,
+         plan,
          jsonb_array_length(coalesce(data->'exams', '[]'::jsonb)) as mocks,
          coalesce((data->>'answered')::int, 0) as answered,
          coalesce((data->>'correct')::int, 0)  as correct,
@@ -31,6 +32,7 @@ per_student as (
 )
 select school_code,
        count(*)                                              as seats_used,
+       count(*) filter (where plan = 'full')                 as paid_seats,
        sum(mocks)                                            as mocks_taken,
        round(avg(mocks), 1)                                  as avg_mocks_per_student,
        count(*) filter (where mocks >= 3)                    as students_3plus_mocks,
@@ -61,9 +63,10 @@ order by p.school_code, accuracy_pct asc;
 
 -- ---------------------------------------------------------------- 3. Roster
 -- Who is enrolled under each school (for seat reconciliation / contacting them).
+-- "access" separates learners who paid for themselves from school-seat learners.
 select p.school_code,
        coalesce(nullif(p.name, ''), u.email, p.phone) as learner,
-       p.plan,
+       case when p.plan = 'full' then 'paid' else 'school' end as access,
        p.created_at
 from public.profiles p
 join auth.users u on u.id = p.id

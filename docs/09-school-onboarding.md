@@ -53,6 +53,10 @@ window.INZIRA_SCHOOLS = {
 - `expires` — `"YYYY-MM-DD"`; on/after this date the code stops working.
 - `active: false` — disables a school instantly without deleting its data.
 
+Both are **enforced on the device at every launch**: an expired or disabled code
+loses the unlock on its next start (paid `full` accounts are never affected), and
+a code that is no longer in the registry is dropped.
+
 Then: bump `CACHE` in `sw.js`, commit, and deploy. The new link works
 immediately: `?school=GS0007`.
 
